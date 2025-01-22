@@ -1,0 +1,151 @@
+/* static/style.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    background-color: #f0f0f0; 
+    width: 200px; 
+    height: 78vh; 
+    max-height: 100vh; 
+    position: fixed; 
+    left: 0;
+    top: 0;
+    padding: 20px; 
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+    overflow-y: auto; 
+}
+
+.dashboard-link {
+    color: black; 
+    font-size: 18px; 
+    font-weight: thin; 
+    margin-top: 20px; 
+}
+
+.sidebar h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.sidebar .last-login {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.active-status {
+    position: absolute;
+    top: 10px;
+    font-size: 14px;
+    color: lime;
+    font-weight: bold;
+    display: none;
+}
+
+.grid-item.selected .active-status {
+    display: block;
+}
+
+.main {
+    margin-left: 270px;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header .title {
+    font-size: 18px;
+}
+
+.header .user {
+    font-size: 14px;
+    color: #555;
+}
+
+.points-box {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.grid-item {
+    background-color: #112240;
+    color: white;
+    font-size: 16px;
+    padding: 50px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.grid-item.selected {
+    background-color: #1e5128;
+}
+
+.grid-item:hover {
+    background-color: #0a1d30;
+}
+
+.attribute-update-form {
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.attribute-update-form__grid {
+    display: flex;
+}
+.grid__element:first-child {
+    flex: 1;
+}
+.grid__element:last-child {
+    margin-top: 19px;
+    margin-left: 7px;
+}
+.grid__element {
+    display: flex;
+}
+
+.attribute-update-form .mat-button.mat-icon-button {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    min-height: 32px;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 20px;
+}
+
+.attribute-update-form .mat-icon-button mat-icon {
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    min-height: 20px;
+    font-size: 20px;
+}
+
+.tb-toast {
+    font-size: 14px!important;
+}

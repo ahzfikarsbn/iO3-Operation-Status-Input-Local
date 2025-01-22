@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vessel Operation Status Input Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .grid-item.selected {
+            background-color: #1e5128; /* Green */
+            color: white;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gridItems = document.querySelectorAll('.grid-item');
+            const currentValue = {{ currentValue|tojson }}; // Load the current value from the server
+
+            // Highlight the selected grid item based on the current server state
+            gridItems.forEach(item => {
+                if (item.getAttribute('data-value') == currentValue) {
+                    item.classList.add('selected');
+                    document.getElementById('points-box').textContent =
+                        `Operation Status Value : ${currentValue}`;
+                }
+            });
+
+            // Add click event listener to each grid item
+            gridItems.forEach(item => {
+                item.addEventListener('click', async (event) => {
+                    const boxName = event.target.textContent.trim();
+                    const boxValue = event.target.getAttribute('data-value');
+
+                    const isConfirmed = confirm(`Are you sure you choose "${boxName}"?`);
+                    if (isConfirmed) {
+                        document.querySelectorAll('.grid-item').forEach(i => i.classList.remove('selected'));
+                        event.target.classList.add('selected');
+                        document.getElementById('points-box').textContent =
+                            `Operation Status Value : ${boxValue}`;
+
+                        // Send the new state to the server
+                        await fetch('/update_state', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ value: boxValue, description: boxName })
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="https://io3.sg/wp-content/uploads/2023/12/Jarvis-Logo-Solid-Color-1024x258.png" alt="JARVIS Logo" style="width: 100%; height: auto; margin-bottom: 20px;">
+        <p class="dashboard-link">Vessel Operation Status Input Dashboard</p>
+    </div>
+    <div class="main">
+        <div class="grid-container">
+            <div class="grid-item" data-value="1">DP Operation</div>
+            <div class="grid-item" data-value="2">Sea Steaming Full Speed</div>
+            <div class="grid-item" data-value="3">Sea Steaming Eco Speed</div>
+            <div class="grid-item" data-value="4">Maneuvering</div>
+            <div class="grid-item" data-value="5">Standby</div>
+            <div class="grid-item" data-value="6">Anchor Handling</div>
+            <div class="grid-item" data-value="7">Towing Ocean</div>
+            <div class="grid-item" data-value="8">Towing Static</div>
+            <div class="grid-item" data-value="9">In Port</div>
+        </div>
+        <div id="points-box" class="points-box">Operation Status Value : {{ currentValue }}</div>
+    </div>
+</body>
+</html>
+
